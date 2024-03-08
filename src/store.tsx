@@ -4,7 +4,6 @@ import IAction from './interface/IAction';
 
 
 const reducer = (state: IToDo[] = [], action: IAction): IToDo[] => {
-
   switch (action.type) {
     case 'ADD':
       return [...state, { text: action.text, id: action.id }]
@@ -15,7 +14,6 @@ const reducer = (state: IToDo[] = [], action: IAction): IToDo[] => {
     default:
       return state
   }
-  
 }
 
 const store = createStore(reducer);

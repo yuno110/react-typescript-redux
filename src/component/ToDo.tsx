@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import IToDo from "../interface/IToDo";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 interface TodoProps {
   toDo: IToDo
@@ -8,16 +9,15 @@ interface TodoProps {
 }
 
 function ToDo({ toDo, deleteToDo }: TodoProps) {
-
   return (
     <li>
+     
       {toDo.text}<button onClick={deleteToDo}>DEL</button>
     </li>
   )
 }
 
-function mapDispatchToProps(dispatch: Dispatch, ownProps: {toDo: IToDo}) {
-  
+function mapDispatchToProps(dispatch: Dispatch, ownProps: { toDo: IToDo }) {
   return {
     deleteToDo: () => dispatch({
       type: 'DEL',

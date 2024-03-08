@@ -4,7 +4,6 @@ import Detail from "../routes/Detail";
 
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
