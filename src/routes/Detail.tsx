@@ -11,10 +11,4 @@ function Detail() {
   )
 }
 
-function mapStateToProps(state: IToDo, ownProps: any){
-  
-  return {
-    toDo: state
-  }
-}
-export default connect(mapStateToProps, null)(Detail);
+export default Detail;

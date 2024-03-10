@@ -1,34 +1,30 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import IToDo from "../interface/IToDo";
-import ToDo from "../component/ToDo";
+import { add } from '../store';
+import { RootState } from '../store';
+import ToDo from '../component/ToDo';
 
-interface HomeProps {
-  toDos: IToDo[];
-  addToDo: (text: string) => void;
-}
+function Home() {
 
-function Home({ toDos, addToDo }: HomeProps) {
+  const dispatch = useDispatch();
+  const toDos = useSelector((state: RootState) => state.toDos);
 
-  const [text, setText] = useState<string>('');
-
+  const [text, setText] = useState<string>('')
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   }
-
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addToDo(text);
-    setText('');
+    dispatch(add(text));
+    setText('')
   }
 
   return (
     <div>
       <h1>To Do</h1>
       <form onSubmit={onSubmit}>
-        <input type="text" value={text} onChange={onChange} />
+        <input type='text' value={text} onChange={onChange} />
         <button>Add</button>
       </form>
       <ul>
@@ -38,18 +34,4 @@ function Home({ toDos, addToDo }: HomeProps) {
   )
 }
 
-function mapToStateProps(state: IToDo[]) {
-  return { toDos: state }
-}
-
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    addToDo: (text: string) => dispatch({
-      type: 'ADD',
-      text: text,
-      id: Date.now().toString()
-    })
-  };
-}
-
-export default connect(mapToStateProps, mapDispatchToProps)(Home);
+export default Home;

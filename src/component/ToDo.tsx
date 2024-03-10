@@ -1,29 +1,20 @@
-import { Dispatch } from "redux";
 import IToDo from "../interface/IToDo";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import {remove} from '../store';
+import {useDispatch} from "react-redux";
 
-interface TodoProps {
-  toDo: IToDo
-  deleteToDo: () => void
-}
+function ToDo({toDo}: {toDo: IToDo}) {
 
-function ToDo({ toDo, deleteToDo }: TodoProps) {
+  const dispatch = useDispatch();
+
+  const onRemove = () => {
+    dispatch(remove(toDo.id));
+  }
+
   return (
     <li>
-     
-      {toDo.text}<button onClick={deleteToDo}>DEL</button>
+      {toDo.text}<button onClick={onRemove}>DEL</button>
     </li>
   )
 }
 
-function mapDispatchToProps(dispatch: Dispatch, ownProps: { toDo: IToDo }) {
-  return {
-    deleteToDo: () => dispatch({
-      type: 'DEL',
-      id: ownProps.toDo.id
-    })
-  }
-}
-
-export default connect(null, mapDispatchToProps)(ToDo);
+export default ToDo;
